@@ -1,0 +1,66 @@
+[
+  {
+    "id": "s1-c1",
+    "title": "Fix This Vending-Machine Prompt",
+    "type": "FIX_THE_PROMPT",
+    "difficulty": "EASY",
+    "vaguePrompt": "Write a README for my project.",
+    "taskDescription": "This prompt will get a generic, useless README. Rewrite it as a collaborator-style prompt that gives Claude everything it needs: what the project does, who uses it, what kind of help you actually want, and any specific constraints.",
+    "masterSolution": "I'm building a Python CLI tool called 'configsync' that synchronizes server configuration files across multiple machines via SSH. My audience is DevOps engineers with Python and Linux experience — not beginners. Help me structure a compelling README: suggest the ideal sections in priority order and explain why each section matters for this specific technical audience. The tool uses YAML config files and runs on Python 3.10+.",
+    "rubric": {
+      "completeness": "Describes what the project does and who uses it",
+      "clarity": "Asks for something specific — not just 'write a README'",
+      "context": "Includes audience, tech stack, or constraints",
+      "structure": "Has background context AND a clear ask",
+      "efficiency": "No padding or filler sentences"
+    },
+    "hints": [
+      "Add who your audience is — developers, beginners, executives?",
+      "Describe what the project does in one specific sentence",
+      "Say what kind of help you want — section structure, tone, content priorities?"
+    ],
+    "xpReward": 50
+  },
+  {
+    "id": "s1-c2",
+    "title": "From Question to Collaboration",
+    "type": "WRITE_FROM_SCRATCH",
+    "difficulty": "EASY",
+    "taskDescription": "You need to debug a Python script that reads from PostgreSQL and returns duplicate rows. Write a collaborator-style prompt that gives Claude everything it needs to help you. Don't paste code — just write the prompt as if you're briefing a brilliant colleague.",
+    "masterSolution": "I'm a backend developer working on a Django application connected to PostgreSQL 15. My query that joins orders with order_items is returning duplicate rows — one row per item when I only want one row per order. I've tried DISTINCT but it didn't help. The duplicates appear only when a user has multiple items in one order. Here are the relevant model definitions and the query: [code]. What's causing the duplication and what's the correct fix — with an explanation of why it works?",
+    "rubric": {
+      "completeness": "Mentions the script's purpose, the exact bug symptom, and context",
+      "clarity": "Describes the bug specifically — not just 'it's not working'",
+      "context": "Includes tech stack, what was tried, and when the bug occurs",
+      "structure": "Has: background, problem, specific ask",
+      "efficiency": "Stays focused — no irrelevant info"
+    },
+    "hints": [
+      "What exact behavior is wrong? Duplicate rows, wrong values, crash?",
+      "What tech stack are you using?",
+      "What have you already tried?"
+    ],
+    "xpReward": 60
+  },
+  {
+    "id": "s1-c3",
+    "title": "Spot the Vending-Machine Pattern",
+    "type": "SPOT_THE_MISTAKE",
+    "difficulty": "MEDIUM",
+    "taskDescription": "Below is a prompt a developer sent to Claude. Identify exactly what makes it a vending-machine prompt and rewrite it as a collaborator prompt for the same task.\n\nOriginal: 'I need help with my code. It's giving me an error and I don't know what to do.'",
+    "masterSolution": "Problems with original: (1) no code shown, (2) no error message, (3) no tech stack, (4) no explanation of what was expected, (5) no context on what was tried.\n\nRewrite: 'I'm getting a TypeError in my React component that's fetching user data from an Express API. The error is: TypeError: Cannot read properties of undefined (reading 'map'). This happens on line 34 when the component renders — I think the API response is arriving after render. I've already tried wrapping in a try/catch. Here's the component code: [paste]. What's causing this and what's the idiomatic React fix?'",
+    "rubric": {
+      "completeness": "Identifies at least 3 specific problems with the original",
+      "clarity": "Rewrites the prompt with specific details",
+      "context": "Adds tech stack, error message, and what was tried",
+      "structure": "Rewritten prompt has clear background + ask",
+      "efficiency": "Rewritten prompt is focused, not padded"
+    },
+    "hints": [
+      "Count how many unanswered questions Claude would have to guess",
+      "What information is completely missing from the original?",
+      "What would a senior developer ask before diving in?"
+    ],
+    "xpReward": 75
+  }
+]

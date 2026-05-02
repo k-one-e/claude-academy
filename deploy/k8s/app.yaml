@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: claude-academy
+  namespace: claude-academy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: claude-academy
+  template:
+    metadata:
+      labels:
+        app: claude-academy
+    spec:
+      initContainers:
+        # Runs `prisma db push` once before the app starts
+        - name: migrate
+          image: kay1e/claude-academy:latest
+          command: ["node", "node_modules/prisma/build/index.js", "db", "push", "--skip-generate"]
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: claude-academy-secrets
+      containers:
+        - name: app
+          image: kay1e/claude-academy:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - secretRef:
+                name: claude-academy-secrets
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 5
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: claude-academy-svc
+  namespace: claude-academy
+spec:
+  selector:
+    app: claude-academy
+  ports:
+    - port: 80
+      targetPort: 3000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: claude-academy-ingress
+  namespace: claude-academy
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: yourdomain.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: claude-academy-svc
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - yourdomain.com
+      secretName: claude-academy-tls

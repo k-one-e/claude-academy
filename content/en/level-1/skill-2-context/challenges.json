@@ -1,0 +1,26 @@
+[
+  {
+    "id": "s2-c1",
+    "title": "Apply the 5 Context Pillars",
+    "type": "IMPROVE_RESPONSE",
+    "difficulty": "EASY",
+    "vaguePrompt": "How do I make my website faster?",
+    "taskDescription": "The original prompt is missing all 5 context pillars: who you are, what you're building, what you've tried, your constraints, and your success criteria. Rewrite it with all 5 pillars filled in.",
+    "masterSolution": "I'm a full-stack developer maintaining a Next.js 14 e-commerce site hosted on Vercel with PostgreSQL via Prisma. Mobile page load is 4.2s (Lighthouse mobile score: 52). The main issues seem to be unoptimized product images and slow DB queries. I've already added basic indexes but haven't tried image optimization. My constraint: I can't change the hosting plan. My target: LCP < 2.5s on mobile. What is the highest-ROI sequence of fixes to try first, and roughly how much improvement should I expect from each?",
+    "rubric": {
+      "completeness": "All 5 context pillars are present",
+      "clarity": "The ask is specific — not just 'make it faster'",
+      "context": "Includes tech stack, current metrics, and what was tried",
+      "structure": "Background → Problem → Constraints → Specific ask",
+      "efficiency": "No irrelevant details included"
+    },
+    "hints": [
+      "Pillar 1: Who are you and what's your experience level?",
+      "Pillar 2: What exactly are you building?",
+      "Pillar 3: What have you already tried?",
+      "Pillar 4: What constraints do you have (budget, time, tech)?",
+      "Pillar 5: What does success look like?"
+    ],
+    "xpReward": 60
+  }
+]
